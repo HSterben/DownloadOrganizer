@@ -71,7 +71,7 @@ public class DownloadOrganizer {
                     fileName = fileName.substring(0, fileName.indexOf("."));
                 } catch (Exception e) {
                 }
-                
+
                 moveFile(fileName, fileType, filename);
                 count = 1;
             }
@@ -91,6 +91,9 @@ public class DownloadOrganizer {
                 Path destinationPath = p.resolve("QSA_" + fileCount(p) + "_" + fileName.toString().substring(3));
                 Files.move(filePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
                 System.out.println(name + " --> " + " quicksave");
+                QuickSaveThread deleteThread = new QuickSaveThread(destinationPath);
+                Thread thread = new Thread(deleteThread);
+                thread.start();
             } catch (Exception e) {
                 System.out.println("Error moving file");
                 e.printStackTrace();
@@ -148,7 +151,7 @@ public class DownloadOrganizer {
 
         Path imageSave = Paths.get(userPath + "Downloads\\Media\\Images\\");
         pathList.put("images", imageSave);
-        
+
         Path GIFSave = Paths.get(userPath + "Downloads\\Media\\GIFS\\");
         pathList.put("gifs", GIFSave);
 
@@ -183,20 +186,24 @@ public class DownloadOrganizer {
         return pathList;
     }
 
-    private static boolean isFileReady(Path path) throws Exception {
-        long size = Files.size(path);
-        System.out.println("Size: " + size);
-        while (true) {
-            // Wait 1.5 seconds
-            Thread.sleep(1500);
-
-            // Compare size
-            long currentSize = Files.size(path);
-            if (size == currentSize) {
-                return true;
-            }
-            size = currentSize;
+    private static boolean isFileReady(Path path) {
+        try {
+            long size = Files.size(path);
             System.out.println("Size: " + size);
+            while (true) {
+                // Wait 1.5 seconds
+                Thread.sleep(1500);
+
+                // Compare size
+                long currentSize = Files.size(path);
+                if (size == currentSize) {
+                    return true;
+                }
+                size = currentSize;
+                System.out.println("Size: " + size);
+            }
+        } catch (Exception e) {
+            return false;
         }
     }
 
