@@ -88,7 +88,7 @@ public class DownloadOrganizer {
         if (name.toUpperCase().startsWith("QSA")) {
             try {
                 p = paths.get("quick");
-                Path destinationPath = p.resolve("QSA-" + fileCount(p) + "-" + fileName.toString().substring(3));
+                Path destinationPath = p.resolve("QSA_" + fileCount(p) + "_" + fileName.toString().substring(3));
                 Files.move(filePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
                 System.out.println(name + " --> " + " quicksave");
             } catch (Exception e) {
@@ -128,7 +128,7 @@ public class DownloadOrganizer {
         }
 
         try {
-            Path destinationPath = p.resolve(prefix + "-" + fileCount(p) + "-" + fileName.toString());
+            Path destinationPath = p.resolve(prefix + "_" + fileCount(p) + "_" + fileName.toString());
             Files.move(filePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
             System.out.println(name + " --> " + p.toString());
         } catch (Exception e) {
