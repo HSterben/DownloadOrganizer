@@ -1,8 +1,8 @@
 import java.nio.file.*;
 import java.util.HashMap;
 
-public class FileWatcher {
-    static String userPath = "";
+public class DownloadOrganizer {
+    static String userPath = System.getProperty("user.home") + "\\";
     static HashMap<String, Path> paths;
     static Path downloadPath = Paths.get(userPath + "Downloads\\");
     static Path filePath = null;
@@ -32,6 +32,7 @@ public class FileWatcher {
                 if (kind == StandardWatchEventKinds.OVERFLOW) {
                     continue;
                 }
+
                 // Skip/Discard the first 2 temporary file downloads (Unready)
                 if (count++ < 3) {
                     continue;
@@ -70,8 +71,7 @@ public class FileWatcher {
                     fileName = fileName.substring(0, fileName.indexOf("."));
                 } catch (Exception e) {
                 }
-
-                System.out.println("Moving file");
+                
                 moveFile(fileName, fileType, filename);
                 count = 1;
             }
@@ -100,16 +100,19 @@ public class FileWatcher {
 
         type = type.toUpperCase();
         System.out.println(type);
-        if (type.contains("PNG") || type.contains("JPG") || type.contains("JPEG") || type.contains("GIF")) {
+        if (type.contains("PNG") || type.contains("JPG") || type.contains("JPEG")) {
             p = paths.get("images");
             prefix = "IMAGE";
         } else if (type.contains("MP4") || type.contains("MOV") || type.contains("MPG") || type.contains("MPEG")
-                || type.contains("3GP") || type.contains("AVI")) {
+                || type.contains("3GP") || type.contains("AVI") || type.contains("MKV")) {
             p = paths.get("videos");
             prefix = "VIDEO";
         } else if (type.contains("WAV") || type.contains("MP3") || type.contains("M4A") || type.contains("MPC")) {
             p = paths.get("audios");
             prefix = "AUDIO";
+        } else if (type.contains("GIF")) {
+            p = paths.get("gifs");
+            prefix = "GIF";
         } else if (type.contains("EXE")) {
             p = paths.get("app");
             prefix = "APP";
@@ -140,13 +143,19 @@ public class FileWatcher {
         Path quickSave = Paths.get(userPath + "Downloads\\QuickSave\\");
         pathList.put("quick", quickSave);
 
-        Path imageSave = Paths.get(userPath + "Downloads\\Images\\");
-        pathList.put("images", imageSave);
+        Path mediaFolder = Paths.get(userPath + "Downloads\\Media\\");
+        pathList.put("media", mediaFolder);
 
-        Path videoSave = Paths.get(userPath + "Downloads\\Videos\\");
+        Path imageSave = Paths.get(userPath + "Downloads\\Media\\Images\\");
+        pathList.put("images", imageSave);
+        
+        Path GIFSave = Paths.get(userPath + "Downloads\\Media\\GIFS\\");
+        pathList.put("gifs", GIFSave);
+
+        Path videoSave = Paths.get(userPath + "Downloads\\Media\\Videos\\");
         pathList.put("videos", videoSave);
 
-        Path audioSave = Paths.get(userPath + "Downloads\\Audios\\");
+        Path audioSave = Paths.get(userPath + "Downloads\\Media\\Audios\\");
         pathList.put("audios", audioSave);
 
         Path appSave = Paths.get(userPath + "Downloads\\Apps\\");
