@@ -14,9 +14,10 @@ Java FileWatcher is a utility designed to monitor a specified directory (typical
 - **Robust File Readiness Check**: Ensures files are fully written before moving.
 
 ## How to Use
-1. **Set Up Directory Paths**: Modify `prefix` and `paths` in `FileWatcher.java` to set up the directories you want to monitor and where to move files.
-2. **Compile and Run**: Compile the Java file and run it. The utility will start monitoring the specified directory.
+1. **Install**: Install the project as ZIP and extract the files.
+2. **Setup**: Run the `DownloadOrganizerSetup` to set up the program as a Startup App.
 3. **File Operations**: Add, download, or modify files in the monitored directory and observe the utility moving and renaming them as per the logic defined.
+4. **Quick Save Function**: To use the Quick Save folder; when downloading, simply add the letters `qsa` (*Non case-sensitive*) before your file name.
 
 ## Requirements
 - Java Runtime Environment (JRE) or Java Development Kit (JDK) installed.
