@@ -20,13 +20,12 @@ public class QuickSaveThread implements Runnable {
     }
 
     public void delayedDelete(int minutesWait) {
-        minutesWait *= 60000;
-
-        minutesWait = 5000;
 
         System.out.println("Wait started");
         try {
-            Thread.sleep(minutesWait);
+            for (int i = 0; i < minutesWait; i++) {
+                Thread.sleep(60000);
+            }
             if (Files.exists(filePath)) {
                 Files.delete(filePath);
                 System.out.println(filePath.getFileName() + " has been deleted.");

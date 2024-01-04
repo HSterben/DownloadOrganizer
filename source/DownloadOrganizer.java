@@ -91,7 +91,7 @@ public class DownloadOrganizer {
                 Path destinationPath = p.resolve("QSA_" + fileCount(p) + "_" + fileName.toString().substring(3));
                 Files.move(filePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
                 System.out.println(name + " --> " + " quicksave");
-                QuickSaveThread deleteThread = new QuickSaveThread(destinationPath);
+                QuickSaveThread deleteThread = new QuickSaveThread(5, destinationPath);
                 Thread thread = new Thread(deleteThread);
                 thread.start();
             } catch (Exception e) {
