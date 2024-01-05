@@ -103,7 +103,7 @@ public class DownloadOrganizer {
 
         type = type.toUpperCase();
         System.out.println(type);
-        if (type.contains("PNG") || type.contains("JPG") || type.contains("JPEG")) {
+        if (type.contains("PNG") || type.contains("JPG") || type.contains("JPEG") || type.contains("AVIF")) {
             p = paths.get("images");
             prefix = "IMAGE";
         } else if (type.contains("MP4") || type.contains("MOV") || type.contains("MPG") || type.contains("MPEG")
